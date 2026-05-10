@@ -1371,6 +1371,10 @@ const STORAGE_KEY = 'serenissima_data_v2';
 const PASSWORD_KEY = 'serenissima_pwd_v1';
 const DEFAULT_PASSWORD = 'serenissima';
 
+const BIN_ID = '6a00d302250b1311c32eb559';
+const API_KEY = 'YOUR_MASTER_KEY';
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
 const DEFAULT_DATA = {
   books: [
     {
@@ -1600,7 +1604,9 @@ and the most difficult thing about time is that sometimes you don't know which k
 // ================================================================
 // STATE
 // ================================================================
-let data = loadData();
+let data = structuredClone(DEFAULT_DATA);
+
+loadData();
 
 // Reader state
 let readerBookId = null;
@@ -1615,18 +1621,51 @@ let editingProse = null;   // { bookId, chapterIdx, proseIdx }
 // ================================================================
 // PERSISTENCE
 // ================================================================
-function loadData() {
+async function loadData() {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return JSON.parse(stored);
-  } catch (e) { console.error(e); }
-  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    const res = await fetch(BIN_URL, {
+      headers: {
+        'X-Master-Key': API_KEY
+      }
+    });
+
+    const json = await res.json();
+
+    if (json.record) {
+      data = json.record;
+
+      renderBooks();
+      updateFeaturedPoem();
+
+      console.log('Data loaded from JSONBin');
+    }
+  } catch (err) {
+    console.error('Load failed:', err);
+
+    data = structuredClone(DEFAULT_DATA);
+
+    renderBooks();
+    updateFeaturedPoem();
+  }
 }
 
-function saveData() {
+async function saveData() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) { console.error(e); toast('could not save'); }
+    await fetch(BIN_URL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY
+      },
+      body: JSON.stringify(data)
+    });
+
+    console.log('Saved to JSONBin');
+    toast('saved successfully');
+  } catch (err) {
+    console.error('Save failed:', err);
+    toast('could not save');
+  }
 }
 
 function getPassword() {
