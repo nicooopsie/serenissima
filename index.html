@@ -1,0 +1,2463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>serenissima — poetry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cardo:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4f6fb;
+    --bg-soft: #eaf0fb;
+    --bg-deep: #1a2d5a;
+    --bg-deepest: #0f1d3f;
+    --text: #1a1f2e;
+    --text-muted: #5a6a90;
+    --text-faint: #7a90b8;
+    --text-faintest: #8aaad8;
+    --accent: #3a5fa8;
+    --accent-soft: #6a90c8;
+    --border: rgba(60,100,180,0.15);
+    --border-soft: rgba(60,100,180,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cardo', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ---------------- NAV ---------------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-bottom: 0.5px solid var(--border);
+    background: rgba(244,246,251,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    color: var(--text);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ---------------- HERO ---------------- */
+  .hero {
+    position: relative;
+    padding: 6rem 2rem 5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 65% 35%, rgba(140,170,230,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 25% 75%, rgba(100,140,210,0.13) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero > * { position: relative; }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: var(--text-faint);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(50px, 9vw, 92px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: #0f1628;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .rule {
+    width: 50px;
+    height: 0.5px;
+    background: var(--accent-soft);
+    margin: 1.75rem auto;
+  }
+
+  .hero-poem {
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.9;
+    max-width: 360px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Cardo', serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    padding: 0.85rem 2rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-dark {
+    color: var(--bg);
+    background: var(--bg-deep);
+  }
+
+  .btn-dark:hover { background: var(--bg-deepest); }
+
+  .btn-outline {
+    color: var(--bg-deep);
+    background: transparent;
+    border: 0.5px solid var(--accent);
+  }
+
+  .btn-outline:hover { background: var(--bg-soft); }
+
+  /* ---------------- BOOKS ---------------- */
+  .books {
+    background: var(--bg-soft);
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: var(--text-faint);
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 300;
+    color: #0f1628;
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 3rem;
+  }
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .book-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    padding: 2rem 1.5rem 1.75rem;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
+  }
+
+  .book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(30,60,140,0.1);
+  }
+
+  .book-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: rgba(60,100,180,0.07);
+    position: absolute;
+    top: 0;
+    right: 0.75rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .book-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-faint);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .book-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    color: #0f1628;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .book-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .book-link {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 0.5px solid currentColor;
+    padding-bottom: 1px;
+  }
+
+  /* ---------------- READER MODAL ---------------- */
+  .reader-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,29,63,0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .reader-overlay.active { display: flex; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .reader {
+    background: var(--bg);
+    width: 100%;
+    max-width: 720px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2.5rem 2.5rem 3.5rem;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .reader-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--text-muted);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+
+  .reader-close:hover { color: var(--text); }
+
+  .reader-header {
+    text-align: center;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .reader-book-tag {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: var(--text-faint);
+    margin-bottom: 0.75rem;
+  }
+
+  .reader-book-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 300;
+    color: #0f1628;
+    margin-bottom: 0.75rem;
+  }
+
+  .reader-section-indicator {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+  }
+
+  /* Table of Contents */
+  .toc {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .toc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .toc-group {
+    margin-bottom: 1.75rem;
+  }
+
+  .toc-group-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--text-faintest);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.55rem 0.5rem;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: background 0.15s;
+  }
+
+  .toc-item:hover { background: var(--bg-soft); }
+
+  .toc-item-num {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-faintest);
+    min-width: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .toc-item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.3;
+  }
+
+  .toc-item-arrow {
+    font-size: 11px;
+    color: var(--accent-soft);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .toc-item:hover .toc-item-arrow { opacity: 1; }
+
+  .toc-prose-list {
+    padding-left: 2.25rem;
+  }
+
+  .toc-prose-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: background 0.15s;
+  }
+
+  .toc-prose-item:hover { background: var(--bg-soft); }
+
+  .toc-prose-item-dot {
+    font-size: 8px;
+    color: var(--text-faintest);
+    flex-shrink: 0;
+  }
+
+  .toc-prose-item-title {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* Chapter content */
+  .reader-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .reader-section-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text-faint);
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Prose within a chapter */
+  .prose-block {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .prose-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+
+  .prose-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text);
+  }
+
+  .prose-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem auto;
+    max-width: 560px;
+  }
+
+  .prose-divider::before,
+  .prose-divider::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  .prose-divider-symbol {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    color: var(--accent-soft);
+    letter-spacing: 0.3em;
+  }
+
+  /* Front/back matter body (single prose, no title) */
+  .reader-body {
+    font-size: 16px;
+    line-height: 2;
+    color: var(--text);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .reader-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--border);
+    gap: 1rem;
+  }
+
+  .reader-nav-btn {
+    font-family: 'Cardo', serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .reader-nav-btn:hover:not(:disabled) { color: var(--bg-deep); }
+
+  .reader-nav-btn:disabled {
+    color: var(--text-faintest);
+    cursor: not-allowed;
+  }
+
+  .reader-toc-btn {
+    font-family: 'Cardo', serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--text-faint);
+    background: transparent;
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    padding: 0.4rem 0.9rem;
+    transition: all 0.2s;
+  }
+
+  .reader-toc-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ---------------- ORACLE ---------------- */
+  .oracle-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15,29,63,0.92) 0%, rgba(10,20,50,0.96) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .oracle-overlay.active {
+    display: flex;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .oracle {
+    max-width: 540px;
+    width: 100%;
+    text-align: center;
+    color: #dce6f5;
+    position: relative;
+  }
+
+  .oracle-close {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--accent-soft);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .oracle-close:hover { color: #dce6f5; }
+
+  .oracle-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--accent-soft);
+    margin-bottom: 2rem;
+    text-transform: lowercase;
+  }
+
+  .oracle-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #eaf0fb;
+    margin-bottom: 2.5rem;
+    min-height: 4em;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .oracle-line.visible { opacity: 1; }
+
+  .oracle-source {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--accent-soft);
+    margin-bottom: 3rem;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .oracle-source.visible { opacity: 0.7; }
+
+  .oracle-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  .oracle-actions.visible { opacity: 1; }
+
+  .oracle-btn {
+    font-family: 'Cardo', serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: #dce6f5;
+    background: transparent;
+    border: 0.5px solid rgba(220,230,245,0.3);
+    padding: 0.75rem 1.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .oracle-btn:hover {
+    background: rgba(220,230,245,0.08);
+    border-color: rgba(220,230,245,0.5);
+  }
+
+  .oracle-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 4s infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.8; }
+  }
+
+  /* ---------------- POEM FEATURE ---------------- */
+  .poem-feature {
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .poem-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 23px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--bg-deep);
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .poem-attr {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--accent-soft);
+  }
+
+  /* ---------------- ABOUT ---------------- */
+  .about {
+    background: var(--bg-deep);
+    color: #dce6f5;
+    padding: 5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: var(--accent-soft);
+    margin-bottom: 1rem;
+  }
+
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 300;
+    line-height: 1.25;
+    color: #eaf0fb;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-body {
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--text-faintest);
+  }
+
+  .about-right {
+    border-left: 0.5px solid rgba(255,255,255,0.1);
+    padding-left: 3rem;
+  }
+
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #c8d8f0;
+    margin-bottom: 2rem;
+  }
+
+  .about-right .btn-outline {
+    color: #c8d8f0;
+    border-color: rgba(255,255,255,0.2);
+    font-size: 12px;
+  }
+
+  .about-right .btn-outline:hover {
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* ---------------- NEWSLETTER ---------------- */
+  .newsletter {
+    padding: 5rem 2rem;
+    text-align: center;
+    border-top: 0.5px solid var(--border-soft);
+  }
+
+  .newsletter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: #0f1628;
+    margin-bottom: 0.6rem;
+  }
+
+  .newsletter-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  .email-row {
+    display: flex;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .email-input {
+    flex: 1;
+    font-family: 'Cardo', serif;
+    font-size: 14px;
+    padding: 0.85rem 1rem;
+    border: 0.5px solid rgba(60,100,180,0.25);
+    border-right: none;
+    background: var(--bg-soft);
+    color: var(--text);
+    outline: none;
+  }
+
+  .email-input::placeholder { color: var(--text-faintest); }
+
+  .email-btn {
+    font-family: 'Cardo', serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--bg);
+    background: var(--bg-deep);
+    border: none;
+    padding: 0.85rem 1.25rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .email-btn:hover { background: var(--bg-deepest); }
+
+  /* ---------------- FOOTER ---------------- */
+  footer {
+    padding: 1.75rem 2rem;
+    text-align: center;
+    border-top: 0.5px solid var(--border-soft);
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--text-faintest);
+    letter-spacing: 0.08em;
+  }
+
+  footer .admin-hint {
+    color: var(--text-faintest);
+    font-size: 10px;
+    margin-top: 0.5rem;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+  /* ---------------- ADMIN ---------------- */
+  .admin-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,29,63,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .admin-overlay.active { display: flex; }
+
+  .admin-panel {
+    background: var(--bg);
+    width: 100%;
+    max-width: 900px;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .admin-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+  }
+
+  .admin-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 0.5px solid var(--border);
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .admin-tab {
+    font-family: 'Cardo', serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    margin-bottom: -1px;
+  }
+
+  .admin-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .admin-content { display: none; }
+  .admin-content.active { display: block; }
+
+  .admin-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+
+  .admin-section:last-child { border-bottom: none; }
+
+  .admin-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--text-faint);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .admin-input,
+  .admin-textarea {
+    width: 100%;
+    font-family: 'Cardo', serif;
+    font-size: 14px;
+    padding: 0.6rem 0.85rem;
+    border: 0.5px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    margin-bottom: 0.75rem;
+  }
+
+  .admin-textarea {
+    min-height: 140px;
+    line-height: 1.7;
+    resize: vertical;
+  }
+
+  .admin-input:focus,
+  .admin-textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .admin-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .admin-btn {
+    font-family: 'Cardo', serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    padding: 0.55rem 1rem;
+    cursor: pointer;
+    border: 0.5px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    transition: all 0.2s;
+  }
+
+  .admin-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .admin-btn-primary {
+    background: var(--bg-deep);
+    color: var(--bg);
+    border-color: var(--bg-deep);
+  }
+
+  .admin-btn-primary:hover {
+    background: var(--bg-deepest);
+    border-color: var(--bg-deepest);
+  }
+
+  .admin-btn-danger {
+    border-color: #b04848;
+    color: #b04848;
+  }
+
+  .admin-btn-danger:hover {
+    background: #b04848;
+    color: var(--bg);
+  }
+
+  .chapter-list { list-style: none; }
+
+  .chapter-item {
+    background: var(--bg-soft);
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 13px;
+  }
+
+  .chapter-item-title { flex: 1; }
+
+  .chapter-item-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .icon-btn:hover { color: var(--accent); }
+  .icon-btn.danger:hover { color: #b04848; }
+  .icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .login-card {
+    max-width: 380px;
+    text-align: center;
+  }
+
+  .login-card .admin-input {
+    text-align: center;
+    letter-spacing: 0.2em;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-deep);
+    color: var(--bg);
+    padding: 0.75rem 1.5rem;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    z-index: 300;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .toast.visible { opacity: 1; }
+
+  /* Admin section type badges */
+  .section-type-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    padding: 0.2rem 0.5rem;
+    border: 0.5px solid var(--border);
+    color: var(--text-faint);
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  /* Prose list in admin */
+  .prose-admin-list { list-style: none; margin-top: 0.5rem; }
+
+  .prose-admin-item {
+    background: var(--bg);
+    border: 0.5px solid var(--border-soft);
+    padding: 0.6rem 0.85rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12.5px;
+    font-style: italic;
+  }
+
+  .prose-admin-title { flex: 1; color: var(--text-muted); }
+
+  /* ---------------- RESPONSIVE ---------------- */
+  @media (max-width: 700px) {
+    .books-grid { grid-template-columns: 1fr; }
+    .about {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .about-right {
+      border-left: none;
+      border-top: 0.5px solid rgba(255,255,255,0.1);
+      padding-left: 0;
+      padding-top: 2rem;
+    }
+    .nav-links { display: none; }
+    .reader { padding: 2rem 1.25rem 2.5rem; }
+    .admin-panel { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#top">serenissima</a>
+  <ul class="nav-links">
+    <li><a onclick="scrollToSection('books-section')">books</a></li>
+    <li><a onclick="openOracle()">a poem</a></li>
+    <li><a onclick="scrollToSection('about-section')">about</a></li>
+    <li><a onclick="scrollToSection('newsletter-section')">letters</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="top">
+  <p class="eyebrow">poetry by serenissima</p>
+  <h1 class="hero-title">it takes loss<br>to make a <em>poet.</em></h1>
+  <div class="rule"></div>
+  <p class="hero-poem">
+    love comes in the form of your presence<br>
+    and absence, unfortunately.
+  </p>
+  <div class="cta-row">
+    <a class="btn btn-dark" onclick="scrollToSection('books-section')">read the books</a>
+    <a class="btn btn-outline" onclick="openOracle()">a poem for you</a>
+  </div>
+</section>
+
+<section class="books" id="books-section">
+  <p class="section-label">three books. one thread.</p>
+  <h2 class="section-title">we are not made of stone—<br>we respond, we echo, we become.</h2>
+  <div class="books-grid" id="books-grid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<section class="poem-feature">
+  <p class="section-label" style="margin-bottom:2rem;">a poem for you</p>
+  <p class="poem-text" id="featured-poem-text">
+    "grief is proof that love was there.<br>
+    just a visitor bringing flowers<br>
+    to pay respect to a love<br>
+    that was once there."
+  </p>
+  <p class="poem-attr" id="featured-poem-attr">— how do you deal with grief? · book i</p>
+</section>
+
+<section class="about" id="about-section">
+  <div>
+    <p class="about-label">the poet</p>
+    <h2 class="about-title">writing so she can, at least, learn to let it go.</h2>
+    <p class="about-body">serenissima writes in the in-between — between holding on and letting go, between the love you give and the love you lose. her three books trace the full arc of a heart learning to carry itself.</p>
+  </div>
+  <div class="about-right">
+    <p class="about-quote">"words will remember for them so they can, at least, learn to let it go."</p>
+    <a class="btn btn-outline" onclick="openOracle()">receive a poem</a>
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter-section">
+  <p class="section-label">stay close</p>
+  <h2 class="newsletter-title">letters from the poet</h2>
+  <p class="newsletter-sub">occasional poems, new work, and quiet thoughts — delivered to your inbox.</p>
+  <div class="email-row">
+    <input class="email-input" type="email" placeholder="your@email.com" id="email-input" />
+    <button class="email-btn" onclick="subscribeEmail()">subscribe</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 serenissima · always love, still.</p>
+  <p class="admin-hint" onclick="openAdmin()">·</p>
+</footer>
+
+<!-- READER MODAL -->
+<div class="reader-overlay" id="reader-overlay">
+  <div class="reader" id="reader-panel">
+    <button class="reader-close" onclick="closeReader()">×</button>
+
+    <!-- Header (always visible) -->
+    <div class="reader-header" id="reader-header">
+      <p class="reader-book-tag" id="reader-book-tag"></p>
+      <h2 class="reader-book-title" id="reader-book-title"></h2>
+      <p class="reader-section-indicator" id="reader-section-indicator"></p>
+    </div>
+
+    <!-- Table of Contents view -->
+    <div id="reader-toc-view" style="display:none;">
+      <div class="toc">
+        <p class="toc-title">contents</p>
+        <div id="toc-body"></div>
+      </div>
+    </div>
+
+    <!-- Section content view -->
+    <div id="reader-content-view" style="display:none;">
+      <h3 class="reader-section-title" id="reader-section-title"></h3>
+      <p class="reader-section-subtitle" id="reader-section-subtitle"></p>
+      <div id="reader-section-body"></div>
+    </div>
+
+    <!-- Nav -->
+    <div class="reader-nav" id="reader-nav" style="display:none;">
+      <button class="reader-nav-btn" id="reader-prev" onclick="navigateSection(-1)">← previous</button>
+      <button class="reader-toc-btn" onclick="showTOC()">contents</button>
+      <button class="reader-nav-btn" id="reader-next" onclick="navigateSection(1)">next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORACLE MODAL -->
+<div class="oracle-overlay" id="oracle-overlay">
+  <div class="oracle-stars" id="oracle-stars"></div>
+  <div class="oracle">
+    <button class="oracle-close" onclick="closeOracle()">×</button>
+    <p class="oracle-eyebrow">a poem for you</p>
+    <p class="oracle-line" id="oracle-line"></p>
+    <p class="oracle-source" id="oracle-source"></p>
+    <div class="oracle-actions" id="oracle-actions">
+      <button class="oracle-btn" onclick="drawOracle()">draw again</button>
+      <button class="oracle-btn" onclick="closeOracle()">close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="admin-overlay" id="admin-overlay">
+  <div class="admin-panel">
+    <!-- Login screen -->
+    <div id="admin-login" class="login-card" style="margin: 4rem auto;">
+      <p class="section-label">private</p>
+      <h2 class="section-title" style="margin-bottom: 2rem;">enter to manage your work</h2>
+      <input class="admin-input" type="password" id="admin-password" placeholder="passcode" onkeypress="if(event.key==='Enter')checkPassword()" />
+      <div style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem;">
+        <button class="admin-btn admin-btn-primary" onclick="checkPassword()">unlock</button>
+        <button class="admin-btn" onclick="closeAdmin()">cancel</button>
+      </div>
+      <p style="font-size: 11px; color: var(--text-faintest); margin-top: 1.5rem; font-style: italic;">default passcode: <code>serenissima</code> — change it in the admin settings</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="admin-dashboard" style="display: none;">
+      <div class="admin-header">
+        <h2 class="admin-title">admin · your works</h2>
+        <button class="icon-btn" onclick="closeAdmin()" style="font-size: 22px;">×</button>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="books" onclick="switchTab('books')">books & chapters</button>
+        <button class="admin-tab" data-tab="oracle" onclick="switchTab('oracle')">oracle lines</button>
+        <button class="admin-tab" data-tab="settings" onclick="switchTab('settings')">settings</button>
+      </div>
+
+      <!-- BOOKS TAB -->
+      <div class="admin-content active" id="tab-books">
+        <div id="admin-books-list"></div>
+      </div>
+
+      <!-- ORACLE TAB -->
+      <div class="admin-content" id="tab-oracle">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 1rem;">these are the lines the oracle pulls from. one per block. separate each with a blank line. optionally add <code> :: source</code> after a line.</p>
+        <textarea class="admin-textarea" id="oracle-textarea" placeholder="one line per box. separate each line with a blank line.&#10;&#10;like this.&#10;&#10;and this is the next line."></textarea>
+        <button class="admin-btn admin-btn-primary" onclick="saveOracleLines()">save oracle lines</button>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="admin-content" id="tab-settings">
+        <div class="admin-section">
+          <span class="admin-label">change passcode</span>
+          <input class="admin-input" type="password" id="new-password" placeholder="new passcode" />
+          <button class="admin-btn admin-btn-primary" onclick="changePassword()">update passcode</button>
+        </div>
+        <div class="admin-section">
+          <span class="admin-label">export all data</span>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 0.75rem;">download a backup of all your books, chapters, and oracle lines.</p>
+          <button class="admin-btn" onclick="exportData()">download backup (.json)</button>
+        </div>
+        <div class="admin-section">
+          <span class="admin-label">import data</span>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 0.75rem;">restore from a previous backup. this will replace all current content.</p>
+          <input type="file" id="import-file" accept=".json" />
+          <button class="admin-btn" onclick="importData()" style="margin-left: 0.5rem;">import</button>
+        </div>
+        <div class="admin-section">
+          <span class="admin-label" style="color: #b04848;">danger zone</span>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 0.75rem;">reset all books, chapters, and oracle lines back to the starter set.</p>
+          <button class="admin-btn admin-btn-danger" onclick="resetAllData()">reset to defaults</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION EDIT MODAL (for chapters, front/back matter, and prose editing) -->
+<div class="admin-overlay" id="section-edit-overlay" style="z-index: 250;">
+  <div class="admin-panel" style="max-width: 780px;">
+    <div class="admin-header">
+      <h2 class="admin-title" id="section-edit-heading">edit section</h2>
+      <button class="icon-btn" onclick="closeSectionEdit()" style="font-size: 22px;">×</button>
+    </div>
+
+    <!-- Front/back matter editing (single body textarea) -->
+    <div id="section-edit-matter" style="display:none;">
+      <span class="admin-label">title</span>
+      <input class="admin-input" type="text" id="matter-edit-title" />
+      <span class="admin-label">body <span style="font-style:italic;letter-spacing:0;font-size:10px;color:var(--text-faintest);">— wrap words in *asterisks* to italicize</span></span>
+      <textarea class="admin-textarea" id="matter-edit-body" style="min-height: 300px;"></textarea>
+      <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem;">
+        <button class="admin-btn" onclick="closeSectionEdit()">cancel</button>
+        <button class="admin-btn admin-btn-primary" onclick="saveMatterEdit()">save</button>
+      </div>
+    </div>
+
+    <!-- Chapter editing: title + proses list -->
+    <div id="section-edit-chapter" style="display:none;">
+      <span class="admin-label">chapter title</span>
+      <input class="admin-input" type="text" id="chapter-edit-title-input" />
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+        <span class="admin-label" style="margin:0;">proses</span>
+        <button class="admin-btn" onclick="addProseToEditingChapter()">+ add prose</button>
+      </div>
+      <ul class="prose-admin-list" id="prose-admin-list"></ul>
+      <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1.25rem;">
+        <button class="admin-btn" onclick="closeSectionEdit()">cancel</button>
+        <button class="admin-btn admin-btn-primary" onclick="saveChapterMeta()">save chapter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROSE EDIT MODAL -->
+<div class="admin-overlay" id="prose-edit-overlay" style="z-index: 300;">
+  <div class="admin-panel" style="max-width: 720px;">
+    <div class="admin-header">
+      <h2 class="admin-title" id="prose-edit-heading">edit prose</h2>
+      <button class="icon-btn" onclick="closeProseEdit()" style="font-size: 22px;">×</button>
+    </div>
+    <span class="admin-label">prose title</span>
+    <input class="admin-input" type="text" id="prose-edit-title-input" />
+    <span class="admin-label">body <span style="font-style:italic;letter-spacing:0;font-size:10px;color:var(--text-faintest);">— wrap words in *asterisks* to italicize</span></span>
+    <textarea class="admin-textarea" id="prose-edit-body" style="min-height: 340px;"></textarea>
+    <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem;">
+      <button class="admin-btn" onclick="closeProseEdit()">cancel</button>
+      <button class="admin-btn admin-btn-primary" onclick="saveProseEdit()">save prose</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// DATA MODEL
+// ================================================================
+// Each book:
+//   frontMatter: [ { id, type ('dedication'|'prologue'|etc), title, body } ]
+//   chapters:    [ { id, title, proses: [ { id, title, body } ] } ]
+//   backMatter:  [ { id, type ('epilogue'|etc), title, body } ]
+// ================================================================
+
+const STORAGE_KEY = 'serenissima_data_v2';
+const PASSWORD_KEY = 'serenissima_pwd_v1';
+const DEFAULT_PASSWORD = 'serenissima';
+
+const DEFAULT_DATA = {
+  books: [
+    {
+      id: 'book-1',
+      numeral: 'I',
+      tag: 'book one',
+      title: 'in love, in dread',
+      desc: 'on loving deeply and being left with only the ache. the push, the pull, the quiet grief of someone you cannot reach.',
+      frontMatter: [
+        {
+          id: 'fm1-dedication',
+          type: 'dedication',
+          title: 'dedication',
+          body: `for everyone who ever loved someone they couldn't keep.`
+        },
+        {
+          id: 'fm1-prologue',
+          type: 'prologue',
+          title: 'prologue',
+          body: `it takes loss to make a poet.
+
+they try to hide the grief and the anger in the most complex words in a floundering attempt to simplify it—to make some sense of it. and like everything else with a scent of the living, it shall simmer and die out. but these lines and lines of letters will immortalize the eyes of the tormented—red with anger, sadness, or whatever it may be. words will remember for them so they can, at least, learn to let it go.
+
+so i've come to this conclusion: i never want to write poems.`
+        }
+      ],
+      chapters: [
+        {
+          id: 'c1-1',
+          title: 'on loving you',
+          proses: [
+            {
+              id: 'p1-1-1',
+              title: 'i love in your direction',
+              body: `i give it out for the whole world to see but i am hoping it reaches you in some way or another through the butterfly wings of fate. anything i do, your presence shall leave whispers of how you were there—no matter how brief.
+
+love comes in the form of your presence and absence, unfortunately.`
+            },
+            {
+              id: 'p1-1-2',
+              title: 'do you love easily?',
+              body: `i used to love easily.
+
+a girl full of warmth and happiness is inclined to share it with anyone and everyone. but things change as a girl grows up. girlhood is a horror, in itself. but, i firmly believe that it taught me the foundations of love.
+
+to cradle, not crush. to caress, not scar.
+
+i used to love easily.
+
+but i think it slows down after every heartbreak. because with every heartbreak comes a reason to. it's a constant push with no pull, where i am always at a loss.
+
+your heart must stay fearless. in preparation for the arrival of those who shall cradle, not crush. in preparation for those who shall caress, not scar. in preparation for those who shall love, and not fear.`
+            }
+          ]
+        }
+      ],
+      backMatter: [
+        {
+          id: 'bm1-epilogue',
+          type: 'epilogue',
+          title: 'epilogue',
+          body: `love is not always a story with a clean ending. sometimes it's just a feeling that never found its way home—and that, too, is enough.`
+        }
+      ]
+    },
+    {
+      id: 'book-2',
+      numeral: 'II',
+      tag: 'book two',
+      title: 'a love letter to my youth',
+      desc: 'for the friendships that held us when nothing else could. a tender, grateful look at girlhood and the people who made it bearable.',
+      frontMatter: [
+        {
+          id: 'fm2-dedication',
+          type: 'dedication',
+          title: 'dedication',
+          body: `for the girls who held my hand through the parts i couldn't say out loud.`
+        },
+        {
+          id: 'fm2-prologue',
+          type: 'prologue',
+          title: 'prologue',
+          body: `girlhood is a strange, sacred thing. it teaches you what love looks like before you know what love costs.`
+        }
+      ],
+      chapters: [
+        {
+          id: 'c2-1',
+          title: 'the ones who stayed',
+          proses: [
+            {
+              id: 'p2-1-1',
+              title: 'grace in gratitude',
+              body: `kindness has always been second nature to you—as if it was just a gene in your body, something so natural.
+
+the weight of invisible pain is heavy, it sags at your back, but offering a smile is free—though, most people would say not caring is free too but we both know we care too much to be able to agree. life is too short to not be empirical about everything anyway.
+
+you always have beautiful eyes when smiling—maybe that's why kindness shines so gracefully on your whole life. my gratitude will forever be offered up to whoever allowed me to bask in all of your light.`
+            },
+            {
+              id: 'p2-1-2',
+              title: 'you are my religion',
+              body: `i do not necessarily believe in that. but, i am adamant on my own faith. my faith is in people—in how i see people. concrete and tangible. the way someone's eyes soften when they care. the way hands reach without asking.
+
+so, when i love you, i love you religiously. silent prayers, quiet sacrifices, living and learning by your scriptures. when you hurt, i feel it too—as if the pain were carved into me. i want to take it all away.
+
+this faith, this love anoints me into a god. i don't pray a lot but when i do, i always pray for you.`
+            },
+            {
+              id: 'p2-1-3',
+              title: 'a war ended',
+              body: `a destructive battle once ravaged through the quiet confines of her brain. it didn't begin there—no, it started outside, as most wars do. but, unfortunately, a wounded soldier had taken refuge in the dark, unlit corners of her brain, and she stayed.
+
+she had so much fight left in her. she could do it, she knows she could have kept going. but a truce, a white flag—this quiet, empty ending was not the one she imagined.
+
+scars fade but the aftermath will forever remain a dull ache hovering beneath her skin. the phantom pain of survival. to fight, to suffer, to remember. war changes you.`
+            }
+          ]
+        }
+      ],
+      backMatter: [
+        {
+          id: 'bm2-epilogue',
+          type: 'epilogue',
+          title: 'epilogue',
+          body: `to the girls who let me love them: you gave me somewhere to put all of it. thank you.`
+        }
+      ]
+    },
+    {
+      id: 'book-3',
+      numeral: 'III',
+      tag: 'book three',
+      title: 'the ache of becoming',
+      desc: 'how love shapes us, how grief stays, and how we learn — slowly, painfully — to become someone worthy of our own tenderness.',
+      frontMatter: [
+        {
+          id: 'fm3-dedication',
+          type: 'dedication',
+          title: 'dedication',
+          body: `for the version of me still learning she deserves to be loved back.`
+        },
+        {
+          id: 'fm3-prologue',
+          type: 'prologue',
+          title: 'prologue',
+          body: `becoming is not a clean process. it is lived in fragments—in grief, in growth, in the slow, tender act of choosing yourself.`
+        }
+      ],
+      chapters: [
+        {
+          id: 'c3-1',
+          title: 'what love leaves behind',
+          proses: [
+            {
+              id: 'p3-1-1',
+              title: 'mirrors',
+              body: `you reflect the love you receive. like a mirror, you absorb what is given to you and send it back, sometimes softened, sometimes magnified. when you are met with kindness, you become softer. when you are cherished, you begin to glow in ways you did not know you could.
+
+you become someone worthy of love.
+
+but the opposite can also be true. when love is absent, withheld, or conditional, it will dim the stars in your eyes. it can twist the way you see yourself. and sometimes, without even realizing it, you begin to reflect that emptiness back.
+
+we are not made of stone—we respond, we echo, we become. love doesn't just fill us; it teaches us how to give it in return.`
+            },
+            {
+              id: 'p3-1-2',
+              title: 'heartbreak solidified',
+              body: `there comes a moment when heartbreak stops feeling like a sudden wound and starts becoming something more permanent—something heavier. it settles deep, like sediment in the soul, and solidifies into grief.
+
+and the thing about grief is that it doesn't leave. it simply changes. it puts on new faces. sometimes, it comes as silence in a room once full of laughter. other times, it's the unexpected weight of a memory.
+
+grief stays. it transforms and reappears. it folds itself into your routines and hides in your habits.
+
+and maybe that's all grief really is: love that has nowhere left to go.`
+            },
+            {
+              id: 'p3-1-3',
+              title: 'borrow and steal',
+              body: `there is a difference between borrowed time and stolen time.
+
+borrowed time comes with awareness. it carries the weight of permission, of gratitude. it's almost ephemeral, knowing that what you have is temporary but given nonetheless. it's fragile and sacred.
+
+stolen time is different. it is taken, not given. it comes with urgency, guilt, maybe even thrill—but always a shadow.
+
+both feel precious. both feel like miracles. but one asks you to cherish it and one asks you to look over your shoulder.
+
+and the most difficult thing about time is that sometimes you don't know which kind you're living in until it's already slipped through your fingertips. until it's gone.`
+            }
+          ]
+        }
+      ],
+      backMatter: [
+        {
+          id: 'bm3-epilogue',
+          type: 'epilogue',
+          title: 'epilogue',
+          body: `you are not finished. you are still becoming. and that, above all else, is the most hopeful thing i know.`
+        }
+      ]
+    }
+  ],
+  oracleLines: [
+    { text: "love comes in the form of your presence and absence, unfortunately.", source: "book i" },
+    { text: "it takes loss to make a poet.", source: "book i · prologue" },
+    { text: "to cradle, not crush. to caress, not scar.", source: "book i" },
+    { text: "your heart must stay fearless.", source: "book i" },
+    { text: "i love you religiously. silent prayers, quiet sacrifices.", source: "book ii" },
+    { text: "grief is love that has nowhere left to go.", source: "book iii" },
+    { text: "we are not made of stone—we respond, we echo, we become.", source: "book iii" },
+    { text: "you become someone worthy of love.", source: "book iii · mirrors" },
+    { text: "scars fade but the aftermath will forever remain a dull ache hovering beneath her skin.", source: "book ii" },
+    { text: "love isn't love until it's expressed.", source: "book iii" },
+    { text: "and for a time, i knew you.", source: "book iii" },
+    { text: "words will remember for them so they can, at least, learn to let it go.", source: "book i" },
+    { text: "love, no matter how deep or genuine, cannot nourish another soul unless it is shared.", source: "book iii" },
+    { text: "every heartbreak is a lesson i never asked to learn.", source: "book i" },
+    { text: "her family's love is folded into warm sinigang soup and the car rides where soft rock blasts on the radio.", source: "book ii" },
+    { text: "i lived for you once, i can do it again. over and over again, for you i would.", source: "book ii" },
+    { text: "i am just human. flawed, fractured, and all the while, still trying.", source: "book ii" },
+    { text: "love should never be lost without a fight.", source: "book ii" },
+    { text: "the days just keep running because a part of you will always be mine.", source: "book iii" },
+    { text: "a wound that isn't fresh but aches all the same.", source: "book iii" }
+  ]
+};
+
+// ================================================================
+// STATE
+// ================================================================
+let data = loadData();
+
+// Reader state
+let readerBookId = null;
+let readerSections = []; // flat array: { kind: 'front'|'chapter'|'back', ref: <object> }
+let readerIdx = 0;       // index into readerSections
+let readerShowingTOC = false;
+
+// Admin state
+let editingSection = null; // { bookId, kind: 'front'|'back'|'chapter', idx }
+let editingProse = null;   // { bookId, chapterIdx, proseIdx }
+
+// ================================================================
+// PERSISTENCE
+// ================================================================
+function loadData() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) return JSON.parse(stored);
+  } catch (e) { console.error(e); }
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) { console.error(e); toast('could not save'); }
+}
+
+function getPassword() {
+  return localStorage.getItem(PASSWORD_KEY) || DEFAULT_PASSWORD;
+}
+
+function setPassword(pwd) {
+  localStorage.setItem(PASSWORD_KEY, pwd);
+}
+
+// ================================================================
+// TOAST
+// ================================================================
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('visible');
+  setTimeout(() => t.classList.remove('visible'), 2200);
+}
+
+// ================================================================
+// NAVIGATION
+// ================================================================
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// ================================================================
+// BOOKS RENDERING
+// ================================================================
+function renderBooks() {
+  const grid = document.getElementById('books-grid');
+  grid.innerHTML = '';
+  data.books.forEach(book => {
+    const card = document.createElement('div');
+    card.className = 'book-card';
+    card.onclick = () => openReader(book.id);
+    card.innerHTML = `
+      <span class="book-num">${book.numeral}</span>
+      <span class="book-tag">${book.tag}</span>
+      <h3 class="book-title">${book.title}</h3>
+      <p class="book-desc">${book.desc}</p>
+      <a class="book-link">read more →</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ================================================================
+// READER
+// ================================================================
+function buildSections(book) {
+  const sections = [];
+  (book.frontMatter || []).forEach(fm => sections.push({ kind: 'front', ref: fm }));
+  (book.chapters || []).forEach((ch, i) => sections.push({ kind: 'chapter', ref: ch, chapterNum: i + 1, total: book.chapters.length }));
+  (book.backMatter || []).forEach(bm => sections.push({ kind: 'back', ref: bm }));
+  return sections;
+}
+
+function openReader(bookId) {
+  readerBookId = bookId;
+  const book = data.books.find(b => b.id === bookId);
+  readerSections = buildSections(book);
+  readerShowingTOC = true;
+
+  document.getElementById('reader-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // Set static header info
+  document.getElementById('reader-book-tag').textContent = book.tag;
+  document.getElementById('reader-book-title').textContent = book.title;
+
+  showTOC();
+}
+
+function closeReader() {
+  document.getElementById('reader-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function showTOC() {
+  readerShowingTOC = true;
+  const book = data.books.find(b => b.id === readerBookId);
+
+  document.getElementById('reader-section-indicator').textContent = '';
+  document.getElementById('reader-toc-view').style.display = 'block';
+  document.getElementById('reader-content-view').style.display = 'none';
+  document.getElementById('reader-nav').style.display = 'none';
+
+  const tocBody = document.getElementById('toc-body');
+  tocBody.innerHTML = '';
+
+  // Front matter group
+  if (book.frontMatter && book.frontMatter.length) {
+    const group = document.createElement('div');
+    group.className = 'toc-group';
+    group.innerHTML = `<p class="toc-group-label">front matter</p>`;
+    book.frontMatter.forEach((fm, i) => {
+      const sectionIdx = i;
+      const item = document.createElement('div');
+      item.className = 'toc-item';
+      item.onclick = () => goToSection(sectionIdx);
+      item.innerHTML = `
+        <span class="toc-item-num">—</span>
+        <span class="toc-item-title">${escapeHtml(fm.title)}</span>
+        <span class="toc-item-arrow">→</span>
+      `;
+      group.appendChild(item);
+    });
+    tocBody.appendChild(group);
+  }
+
+  // Chapters group
+  if (book.chapters && book.chapters.length) {
+    const group = document.createElement('div');
+    group.className = 'toc-group';
+    group.innerHTML = `<p class="toc-group-label">chapters</p>`;
+    const frontOffset = (book.frontMatter || []).length;
+    book.chapters.forEach((ch, i) => {
+      const sectionIdx = frontOffset + i;
+      const item = document.createElement('div');
+      item.className = 'toc-item';
+      item.onclick = () => goToSection(sectionIdx);
+      item.innerHTML = `
+        <span class="toc-item-num">${romanNum(i + 1)}</span>
+        <span class="toc-item-title">${escapeHtml(ch.title)}</span>
+        <span class="toc-item-arrow">→</span>
+      `;
+      // Prose sub-list
+      if (ch.proses && ch.proses.length > 1) {
+        const subList = document.createElement('div');
+        subList.className = 'toc-prose-list';
+        ch.proses.forEach((p, pi) => {
+          const pItem = document.createElement('div');
+          pItem.className = 'toc-prose-item';
+          pItem.onclick = (e) => { e.stopPropagation(); goToSection(sectionIdx); };
+          pItem.innerHTML = `
+            <span class="toc-prose-item-dot">·</span>
+            <span class="toc-prose-item-title">${escapeHtml(p.title)}</span>
+          `;
+          subList.appendChild(pItem);
+        });
+        item.appendChild(subList);
+      }
+      group.appendChild(item);
+    });
+    tocBody.appendChild(group);
+  }
+
+  // Back matter group
+  if (book.backMatter && book.backMatter.length) {
+    const group = document.createElement('div');
+    group.className = 'toc-group';
+    group.innerHTML = `<p class="toc-group-label">back matter</p>`;
+    const backOffset = (book.frontMatter || []).length + (book.chapters || []).length;
+    book.backMatter.forEach((bm, i) => {
+      const sectionIdx = backOffset + i;
+      const item = document.createElement('div');
+      item.className = 'toc-item';
+      item.onclick = () => goToSection(sectionIdx);
+      item.innerHTML = `
+        <span class="toc-item-num">—</span>
+        <span class="toc-item-title">${escapeHtml(bm.title)}</span>
+        <span class="toc-item-arrow">→</span>
+      `;
+      group.appendChild(item);
+    });
+    tocBody.appendChild(group);
+  }
+
+  document.getElementById('reader-panel').scrollTop = 0;
+}
+
+function goToSection(idx) {
+  readerIdx = idx;
+  readerShowingTOC = false;
+  renderSection();
+}
+
+function navigateSection(delta) {
+  const newIdx = readerIdx + delta;
+  if (newIdx < 0 || newIdx >= readerSections.length) return;
+  readerIdx = newIdx;
+  renderSection();
+}
+
+function renderSection() {
+  const section = readerSections[readerIdx];
+  if (!section) return;
+
+  document.getElementById('reader-toc-view').style.display = 'none';
+  document.getElementById('reader-content-view').style.display = 'block';
+  document.getElementById('reader-nav').style.display = 'flex';
+
+  // Indicator
+  const indicatorEl = document.getElementById('reader-section-indicator');
+  if (section.kind === 'chapter') {
+    indicatorEl.textContent = `chapter ${section.chapterNum} of ${section.total}`;
+  } else {
+    indicatorEl.textContent = section.ref.type || section.kind === 'front' ? section.ref.type : section.ref.type;
+  }
+
+  // Title & subtitle
+  document.getElementById('reader-section-title').textContent = section.ref.title || '';
+  document.getElementById('reader-section-subtitle').textContent = '';
+
+  const bodyEl = document.getElementById('reader-section-body');
+  bodyEl.innerHTML = '';
+
+  if (section.kind === 'chapter') {
+    // Render proses with dividers
+    const proses = section.ref.proses || [];
+    proses.forEach((p, i) => {
+      const block = document.createElement('div');
+      block.className = 'prose-block';
+
+      const titleEl = document.createElement('h4');
+      titleEl.className = 'prose-title';
+      titleEl.textContent = p.title;
+      block.appendChild(titleEl);
+
+      const bodyText = document.createElement('div');
+      bodyText.className = 'prose-body';
+      renderBody(bodyText, p.body);
+      block.appendChild(bodyText);
+
+      bodyEl.appendChild(block);
+
+      // Divider between proses
+      if (i < proses.length - 1) {
+        const divider = document.createElement('div');
+        divider.className = 'prose-divider';
+        divider.innerHTML = `<span class="prose-divider-symbol">✦</span>`;
+        bodyEl.appendChild(divider);
+      }
+    });
+  } else {
+    // Front/back matter: single body
+    const bodyText = document.createElement('div');
+    bodyText.className = 'reader-body';
+    renderBody(bodyText, section.ref.body || '');
+    bodyEl.appendChild(bodyText);
+  }
+
+  // Nav buttons
+  document.getElementById('reader-prev').disabled = readerIdx === 0;
+  document.getElementById('reader-next').disabled = readerIdx === readerSections.length - 1;
+
+  document.getElementById('reader-panel').scrollTop = 0;
+}
+
+function romanNum(n) {
+  const vals = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
+  const syms = ['M','CM','D','CD','C','XC','L','XL','X','IX','V','IV','I'];
+  let result = '';
+  vals.forEach((v, i) => { while (n >= v) { result += syms[i]; n -= v; } });
+  return result.toLowerCase();
+}
+
+// ================================================================
+// ORACLE
+// ================================================================
+function openOracle() {
+  document.getElementById('oracle-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  renderStars();
+  drawOracle();
+}
+
+function closeOracle() {
+  document.getElementById('oracle-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function renderStars() {
+  const container = document.getElementById('oracle-stars');
+  container.innerHTML = '';
+  for (let i = 0; i < 30; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 4 + 's';
+    star.style.animationDuration = (3 + Math.random() * 3) + 's';
+    container.appendChild(star);
+  }
+}
+
+function drawOracle() {
+  const lineEl = document.getElementById('oracle-line');
+  const sourceEl = document.getElementById('oracle-source');
+  const actionsEl = document.getElementById('oracle-actions');
+  lineEl.classList.remove('visible');
+  sourceEl.classList.remove('visible');
+  actionsEl.classList.remove('visible');
+  setTimeout(() => {
+    if (!data.oracleLines.length) {
+      lineEl.textContent = 'no lines available yet.';
+      sourceEl.textContent = '';
+    } else {
+      const pick = data.oracleLines[Math.floor(Math.random() * data.oracleLines.length)];
+      lineEl.innerHTML = `"${pick.text}"`;
+      sourceEl.textContent = `— ${pick.source}`;
+    }
+    setTimeout(() => lineEl.classList.add('visible'), 50);
+    setTimeout(() => sourceEl.classList.add('visible'), 400);
+    setTimeout(() => actionsEl.classList.add('visible'), 800);
+  }, 400);
+}
+
+// ================================================================
+// NEWSLETTER
+// ================================================================
+function subscribeEmail() {
+  const input = document.getElementById('email-input');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) { toast('please enter a valid email'); return; }
+  const subs = JSON.parse(localStorage.getItem('serenissima_subs_v1') || '[]');
+  if (!subs.includes(email)) {
+    subs.push(email);
+    localStorage.setItem('serenissima_subs_v1', JSON.stringify(subs));
+  }
+  input.value = '';
+  toast('thank you. you will receive the next letter.');
+}
+
+// ================================================================
+// ADMIN
+// ================================================================
+function openAdmin() {
+  document.getElementById('admin-overlay').classList.add('active');
+  document.getElementById('admin-login').style.display = 'block';
+  document.getElementById('admin-dashboard').style.display = 'none';
+  document.getElementById('admin-password').value = '';
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('admin-password').focus(), 100);
+}
+
+function closeAdmin() {
+  document.getElementById('admin-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function checkPassword() {
+  const entered = document.getElementById('admin-password').value;
+  if (entered === getPassword()) {
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-dashboard').style.display = 'block';
+    renderAdminBooks();
+    document.getElementById('oracle-textarea').value =
+      data.oracleLines.map(l => l.text + (l.source ? ' :: ' + l.source : '')).join('\n\n');
+  } else {
+    toast('incorrect passcode');
+  }
+}
+
+function changePassword() {
+  const newPwd = document.getElementById('new-password').value.trim();
+  if (!newPwd || newPwd.length < 4) { toast('passcode must be at least 4 characters'); return; }
+  setPassword(newPwd);
+  document.getElementById('new-password').value = '';
+  toast('passcode updated');
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.admin-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + name));
+}
+
+// ----------------------------------------------------------------
+// Admin: books rendering
+// ----------------------------------------------------------------
+function renderAdminBooks() {
+  const container = document.getElementById('admin-books-list');
+  container.innerHTML = '';
+  data.books.forEach((book, bookIdx) => {
+    const sec = document.createElement('div');
+    sec.className = 'admin-section';
+
+    // Book meta
+    sec.innerHTML = `
+      <div class="admin-row">
+        <span class="admin-label" style="margin:0;">book ${book.numeral}</span>
+      </div>
+      <div class="admin-row">
+        <input class="admin-input" style="margin:0;flex:1;" type="text" value="${escapeHtml(book.title)}" data-field="title" data-book-id="${book.id}" />
+      </div>
+      <div class="admin-row">
+        <textarea class="admin-textarea" style="min-height:70px;margin:0;flex:1;" data-field="desc" data-book-id="${book.id}">${escapeHtml(book.desc)}</textarea>
+      </div>
+      <div style="margin-top:0.75rem;">
+        <button class="admin-btn admin-btn-primary" onclick="saveBookMeta('${book.id}')">save book details</button>
+      </div>
+    `;
+
+    // Front matter
+    const fmSection = buildMatterAdminSection(book.id, 'front', book.frontMatter || []);
+    sec.appendChild(fmSection);
+
+    // Chapters
+    const chSection = document.createElement('div');
+    chSection.style.marginTop = '1.25rem';
+    chSection.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+        <span class="admin-label" style="margin:0;">chapters</span>
+        <button class="admin-btn" onclick="addChapter('${book.id}')">+ add chapter</button>
+      </div>
+      <ul class="chapter-list" id="chapters-${book.id}"></ul>
+    `;
+    sec.appendChild(chSection);
+
+    // Back matter
+    const bmSection = buildMatterAdminSection(book.id, 'back', book.backMatter || []);
+    sec.appendChild(bmSection);
+
+    container.appendChild(sec);
+    renderChapterList(book.id);
+  });
+}
+
+function buildMatterAdminSection(bookId, kind, items) {
+  const wrapper = document.createElement('div');
+  wrapper.style.marginTop = '1.25rem';
+  const labelText = kind === 'front' ? 'front matter' : 'back matter';
+  const addType = kind === 'front' ? 'prologue' : 'epilogue';
+  wrapper.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+      <span class="admin-label" style="margin:0;">${labelText}</span>
+      <button class="admin-btn" onclick="addMatterSection('${bookId}','${kind}','${addType}')">+ add section</button>
+    </div>
+    <ul class="chapter-list" id="${kind}-matter-${bookId}"></ul>
+  `;
+  setTimeout(() => renderMatterList(bookId, kind), 0);
+  return wrapper;
+}
+
+function renderMatterList(bookId, kind) {
+  const book = data.books.find(b => b.id === bookId);
+  const arr = kind === 'front' ? (book.frontMatter || []) : (book.backMatter || []);
+  const list = document.getElementById(`${kind}-matter-${bookId}`);
+  if (!list) return;
+  list.innerHTML = '';
+  arr.forEach((item, idx) => {
+    const li = document.createElement('li');
+    li.className = 'chapter-item';
+    li.innerHTML = `
+      <span class="chapter-item-title">${escapeHtml(item.title)} <span class="section-type-badge">${item.type}</span></span>
+      <div class="chapter-item-actions">
+        <button class="icon-btn" onclick="moveMatter('${bookId}','${kind}',${idx},-1)" ${idx===0?'disabled':''}>↑</button>
+        <button class="icon-btn" onclick="moveMatter('${bookId}','${kind}',${idx},1)" ${idx===arr.length-1?'disabled':''}>↓</button>
+        <button class="icon-btn" onclick="editMatter('${bookId}','${kind}',${idx})">edit</button>
+        <button class="icon-btn danger" onclick="deleteMatter('${bookId}','${kind}',${idx})">delete</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addMatterSection(bookId, kind, type) {
+  const book = data.books.find(b => b.id === bookId);
+  const arr = kind === 'front' ? book.frontMatter : book.backMatter;
+  if (!arr) { kind === 'front' ? book.frontMatter = [] : book.backMatter = []; }
+  const target = kind === 'front' ? book.frontMatter : book.backMatter;
+  target.push({ id: kind + bookId + '-' + Date.now(), type, title: type, body: '' });
+  saveData();
+  renderMatterList(bookId, kind);
+  toast('section added');
+}
+
+function editMatter(bookId, kind, idx) {
+  const book = data.books.find(b => b.id === bookId);
+  const arr = kind === 'front' ? book.frontMatter : book.backMatter;
+  const item = arr[idx];
+  editingSection = { bookId, kind, idx };
+  document.getElementById('section-edit-heading').textContent = `edit · ${item.type}`;
+  document.getElementById('matter-edit-title').value = item.title;
+  document.getElementById('matter-edit-body').value = item.body;
+  document.getElementById('section-edit-matter').style.display = 'block';
+  document.getElementById('section-edit-chapter').style.display = 'none';
+  document.getElementById('section-edit-overlay').classList.add('active');
+}
+
+function saveMatterEdit() {
+  if (!editingSection) return;
+  const book = data.books.find(b => b.id === editingSection.bookId);
+  const arr = editingSection.kind === 'front' ? book.frontMatter : book.backMatter;
+  const item = arr[editingSection.idx];
+  item.title = document.getElementById('matter-edit-title').value.trim() || item.title;
+  item.body = document.getElementById('matter-edit-body').value;
+  saveData();
+  renderMatterList(editingSection.bookId, editingSection.kind);
+  closeSectionEdit();
+  toast('section saved');
+}
+
+function deleteMatter(bookId, kind, idx) {
+  if (!confirm('delete this section? this cannot be undone.')) return;
+  const book = data.books.find(b => b.id === bookId);
+  const arr = kind === 'front' ? book.frontMatter : book.backMatter;
+  arr.splice(idx, 1);
+  saveData();
+  renderMatterList(bookId, kind);
+  toast('section deleted');
+}
+
+function moveMatter(bookId, kind, idx, delta) {
+  const book = data.books.find(b => b.id === bookId);
+  const arr = kind === 'front' ? book.frontMatter : book.backMatter;
+  const newIdx = idx + delta;
+  if (newIdx < 0 || newIdx >= arr.length) return;
+  const [removed] = arr.splice(idx, 1);
+  arr.splice(newIdx, 0, removed);
+  saveData();
+  renderMatterList(bookId, kind);
+}
+
+// ----------------------------------------------------------------
+// Admin: chapters
+// ----------------------------------------------------------------
+function renderChapterList(bookId) {
+  const book = data.books.find(b => b.id === bookId);
+  const list = document.getElementById('chapters-' + bookId);
+  if (!list) return;
+  list.innerHTML = '';
+  (book.chapters || []).forEach((ch, idx) => {
+    const li = document.createElement('li');
+    li.className = 'chapter-item';
+    const proseCount = (ch.proses || []).length;
+    li.innerHTML = `
+      <span class="chapter-item-title">${idx + 1}. ${escapeHtml(ch.title || 'untitled')} <span class="section-type-badge">${proseCount} prose${proseCount !== 1 ? 's' : ''}</span></span>
+      <div class="chapter-item-actions">
+        <button class="icon-btn" onclick="moveChapter('${bookId}',${idx},-1)" ${idx===0?'disabled':''}>↑</button>
+        <button class="icon-btn" onclick="moveChapter('${bookId}',${idx},1)" ${idx===book.chapters.length-1?'disabled':''}>↓</button>
+        <button class="icon-btn" onclick="editChapter('${bookId}',${idx})">edit</button>
+        <button class="icon-btn danger" onclick="deleteChapter('${bookId}',${idx})">delete</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function saveBookMeta(bookId) {
+  const book = data.books.find(b => b.id === bookId);
+  const titleInput = document.querySelector(`input[data-field="title"][data-book-id="${bookId}"]`);
+  const descInput = document.querySelector(`textarea[data-field="desc"][data-book-id="${bookId}"]`);
+  book.title = titleInput.value.trim() || book.title;
+  book.desc = descInput.value.trim() || book.desc;
+  saveData();
+  renderBooks();
+  toast('book details saved');
+}
+
+function addChapter(bookId) {
+  const book = data.books.find(b => b.id === bookId);
+  if (!book.chapters) book.chapters = [];
+  const newCh = { id: 'c' + bookId + '-' + Date.now(), title: 'untitled chapter', proses: [] };
+  book.chapters.push(newCh);
+  saveData();
+  renderChapterList(bookId);
+  editChapter(bookId, book.chapters.length - 1);
+}
+
+function editChapter(bookId, idx) {
+  const book = data.books.find(b => b.id === bookId);
+  const ch = book.chapters[idx];
+  editingSection = { bookId, kind: 'chapter', idx };
+  document.getElementById('section-edit-heading').textContent = `edit chapter · ${book.title}`;
+  document.getElementById('chapter-edit-title-input').value = ch.title;
+  document.getElementById('section-edit-matter').style.display = 'none';
+  document.getElementById('section-edit-chapter').style.display = 'block';
+  document.getElementById('section-edit-overlay').classList.add('active');
+  renderProseAdminList();
+}
+
+function renderProseAdminList() {
+  if (!editingSection || editingSection.kind !== 'chapter') return;
+  const book = data.books.find(b => b.id === editingSection.bookId);
+  const ch = book.chapters[editingSection.idx];
+  const list = document.getElementById('prose-admin-list');
+  list.innerHTML = '';
+  (ch.proses || []).forEach((p, pi) => {
+    const li = document.createElement('li');
+    li.className = 'prose-admin-item';
+    li.innerHTML = `
+      <span class="prose-admin-title">${pi + 1}. ${escapeHtml(p.title)}</span>
+      <div class="chapter-item-actions">
+        <button class="icon-btn" onclick="moveProse(${pi},-1)" ${pi===0?'disabled':''}>↑</button>
+        <button class="icon-btn" onclick="moveProse(${pi},1)" ${pi===ch.proses.length-1?'disabled':''}>↓</button>
+        <button class="icon-btn" onclick="openProseEdit(${pi})">edit</button>
+        <button class="icon-btn danger" onclick="deleteProse(${pi})">delete</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addProseToEditingChapter() {
+  if (!editingSection) return;
+  const book = data.books.find(b => b.id === editingSection.bookId);
+  const ch = book.chapters[editingSection.idx];
+  if (!ch.proses) ch.proses = [];
+  ch.proses.push({ id: 'p-' + Date.now(), title: 'untitled prose', body: '' });
+  saveData();
+  renderProseAdminList();
+  openProseEdit(ch.proses.length - 1);
+}
+
+function saveChapterMeta() {
+  if (!editingSection) return;
+  const book = data.books.find(b => b.id === editingSection.bookId);
+  const ch = book.chapters[editingSection.idx];
+  ch.title = document.getElementById('chapter-edit-title-input').value.trim() || 'untitled chapter';
+  saveData();
+  renderChapterList(editingSection.bookId);
+  closeSectionEdit();
+  toast('chapter saved');
+}
+
+function deleteChapter(bookId, idx) {
+  if (!confirm('delete this chapter and all its proses? this cannot be undone.')) return;
+  const book = data.books.find(b => b.id === bookId);
+  book.chapters.splice(idx, 1);
+  saveData();
+  renderChapterList(bookId);
+  toast('chapter deleted');
+}
+
+function moveChapter(bookId, idx, delta) {
+  const book = data.books.find(b => b.id === bookId);
+  const newIdx = idx + delta;
+  if (newIdx < 0 || newIdx >= book.chapters.length) return;
+  const [removed] = book.chapters.splice(idx, 1);
+  book.chapters.splice(newIdx, 0, removed);
+  saveData();
+  renderChapterList(bookId);
+}
+
+function closeSectionEdit() {
+  document.getElementById('section-edit-overlay').classList.remove('active');
+  editingSection = null;
+}
+
+// ----------------------------------------------------------------
+// Admin: prose editing
+// ----------------------------------------------------------------
+function openProseEdit(proseIdx) {
+  if (!editingSection) return;
+  const book = data.books.find(b => b.id === editingSection.bookId);
+  const ch = book.chapters[editingSection.idx];
+  const p = ch.proses[proseIdx];
+  editingProse = { bookId: editingSection.bookId, chapterIdx: editingSection.idx, proseIdx };
+  document.getElementById('prose-edit-heading').textContent = `edit prose · ${escapeHtml(ch.title)}`;
+  document.getElementById('prose-edit-title-input').value = p.title;
+  document.getElementById('prose-edit-body').value = p.body;
+  document.getElementById('prose-edit-overlay').classList.add('active');
+}
+
+function closeProseEdit() {
+  document.getElementById('prose-edit-overlay').classList.remove('active');
+  editingProse = null;
+}
+
+function saveProseEdit() {
+  if (!editingProse) return;
+  const book = data.books.find(b => b.id === editingProse.bookId);
+  const ch = book.chapters[editingProse.chapterIdx];
+  const p = ch.proses[editingProse.proseIdx];
+  p.title = document.getElementById('prose-edit-title-input').value.trim() || 'untitled prose';
+  p.body = document.getElementById('prose-edit-body').value;
+  saveData();
+  renderProseAdminList();
+  closeProseEdit();
+  toast('prose saved');
+}
+
+function deleteProse(proseIdx) {
+  if (!editingSection) return;
+  if (!confirm('delete this prose? this cannot be undone.')) return;
+  const book = data.books.find(b => b.id === editingSection.bookId);
+  const ch = book.chapters[editingSection.idx];
+  ch.proses.splice(proseIdx, 1);
+  saveData();
+  renderProseAdminList();
+  toast('prose deleted');
+}
+
+function moveProse(proseIdx, delta) {
+  if (!editingSection) return;
+  const book = data.books.find(b => b.id === editingSection.bookId);
+  const ch = book.chapters[editingSection.idx];
+  const newIdx = proseIdx + delta;
+  if (newIdx < 0 || newIdx >= ch.proses.length) return;
+  const [removed] = ch.proses.splice(proseIdx, 1);
+  ch.proses.splice(newIdx, 0, removed);
+  saveData();
+  renderProseAdminList();
+}
+
+// ----------------------------------------------------------------
+// Admin: oracle
+// ----------------------------------------------------------------
+function saveOracleLines() {
+  const text = document.getElementById('oracle-textarea').value;
+  const blocks = text.split(/\n\s*\n/).map(b => b.trim()).filter(b => b);
+  data.oracleLines = blocks.map(b => {
+    const parts = b.split(' :: ');
+    return { text: parts[0].trim(), source: (parts[1] || '').trim() };
+  });
+  saveData();
+  toast(`saved ${data.oracleLines.length} oracle lines`);
+}
+
+// ----------------------------------------------------------------
+// Admin: settings
+// ----------------------------------------------------------------
+function exportData() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `serenissima-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  const file = document.getElementById('import-file').files[0];
+  if (!file) { toast('select a file first'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!imported.books || !imported.oracleLines) throw new Error('invalid file');
+      data = imported;
+      saveData();
+      renderBooks();
+      renderAdminBooks();
+      document.getElementById('oracle-textarea').value =
+        data.oracleLines.map(l => l.text + (l.source ? ' :: ' + l.source : '')).join('\n\n');
+      toast('data imported');
+    } catch (err) {
+      toast('could not import: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetAllData() {
+  if (!confirm('reset all books and oracle lines back to defaults? this will erase your edits.')) return;
+  data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  saveData();
+  renderBooks();
+  renderAdminBooks();
+  document.getElementById('oracle-textarea').value =
+    data.oracleLines.map(l => l.text + (l.source ? ' :: ' + l.source : '')).join('\n\n');
+  toast('reset to defaults');
+}
+
+// ================================================================
+// UTILS
+// ================================================================
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+// Renders a body string into an element, supporting *italic* markup and newlines.
+// *word* or *multiple words* → <em>...</em>
+// Blank lines between paragraphs are preserved as double <br>.
+function renderBody(el, text) {
+  el.innerHTML = '';
+  const lines = text.split('\n');
+  lines.forEach((line, li) => {
+    const parts = line.split(/(\*[^*]+\*)/g);
+    parts.forEach(part => {
+      if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+        const em = document.createElement('em');
+        em.textContent = part.slice(1, -1);
+        el.appendChild(em);
+      } else {
+        el.appendChild(document.createTextNode(part));
+      }
+    });
+    if (li < lines.length - 1) {
+      el.appendChild(document.createElement('br'));
+    }
+  });
+}
+
+// ================================================================
+// KEYBOARD
+// ================================================================
+document.addEventListener('keydown', e => {
+  if (document.getElementById('reader-overlay').classList.contains('active')) {
+    if (e.key === 'ArrowLeft' && !readerShowingTOC) navigateSection(-1);
+    if (e.key === 'ArrowRight' && !readerShowingTOC) navigateSection(1);
+    if (e.key === 'Escape') closeReader();
+  }
+  if (document.getElementById('oracle-overlay').classList.contains('active') && e.key === 'Escape') closeOracle();
+  if (document.getElementById('admin-overlay').classList.contains('active') && e.key === 'Escape') closeAdmin();
+  if (document.getElementById('section-edit-overlay').classList.contains('active') && e.key === 'Escape') closeSectionEdit();
+  if (document.getElementById('prose-edit-overlay').classList.contains('active') && e.key === 'Escape') closeProseEdit();
+});
+
+document.getElementById('reader-overlay').addEventListener('click', e => {
+  if (e.target.id === 'reader-overlay') closeReader();
+});
+document.getElementById('oracle-overlay').addEventListener('click', e => {
+  if (e.target.id === 'oracle-overlay') closeOracle();
+});
+
+// ================================================================
+// ADMIN ROUTE
+// ================================================================
+if (window.location.hash === '#admin' || window.location.search.includes('admin') || window.location.pathname.endsWith('/admin')) {
+  setTimeout(openAdmin, 300);
+}
+
+let typedKeys = '';
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  typedKeys += e.key.toLowerCase();
+  if (typedKeys.length > 10) typedKeys = typedKeys.slice(-10);
+  if (typedKeys.includes('admin')) { typedKeys = ''; openAdmin(); }
+});
+
+// ================================================================
+// INIT
+// ================================================================
+renderBooks();
+</script>
+
+</body>
+</html>
